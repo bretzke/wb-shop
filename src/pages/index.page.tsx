@@ -9,7 +9,6 @@ interface IndexProps {
 }
 
 export default function Index({ products }: IndexProps) {
-  console.log(products);
   return (
     <div>
       {products.map((product) => (
@@ -24,19 +23,16 @@ export const getStaticProps: GetStaticProps = async () => {
     expand: ["data.default_price"],
   });
 
-  console.log(response);
-
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price;
+    const priceAmount = price.unit_amount ? price.unit_amount / 100 : 0;
+
     return {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
       defaultPriceId: price.id,
-      // price: new Intl.NumberFormat("pt-BR", {
-      //   style: "currency",
-      //   currency: "BRL",
-      // }).format(price.unit_amount / 100), // o preço é salvo em centavos no BD do stripe
+      price: priceAmount,
     };
   });
 
