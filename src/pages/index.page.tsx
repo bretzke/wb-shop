@@ -10,7 +10,7 @@ interface IndexProps {
 
 export default function Index({ products }: IndexProps) {
   return (
-    <div>
+    <div className="flex gap-4 container py-8">
       {products.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
