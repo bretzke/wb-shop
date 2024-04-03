@@ -23,9 +23,9 @@ export default function ProductCard({ id, name, price, imageUrl }: IProduct) {
         <CardHeader className="p-2">
           <Image src={imageUrl} width={200} height={200} alt="" className="max-h-48" />
         </CardHeader>
-        <CardContent className="p-4">
-          <CardTitle className="text-lg">{name}</CardTitle>
-          <CardDescription>{formatNumberToReal(price)}</CardDescription>
+        <CardContent className="p-4 flex flex-col gap-2">
+          <CardTitle className="text-lg leading-tight">{name}</CardTitle>
+          <CardDescription className="text-lg font-semibold">{formatNumberToReal(price)}</CardDescription>
         </CardContent>
       </Link>
       <CardFooter className="p-4">

@@ -36,13 +36,14 @@ export default function CartHeader() {
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>
         <div className="grid gap-4 py-4">
+          {!cart.length && <h3>Carrinho vazio.</h3>}
           {cart.map((productCart) => (
             <CartHeaderItem key={productCart.id} {...productCart} />
           ))}
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Finalizar pedido</Button>
+            {cart.length > 0 && <Button type="submit">Finalizar pedido</Button>}
           </SheetClose>
         </SheetFooter>
       </SheetContent>
