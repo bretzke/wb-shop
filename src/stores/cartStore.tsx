@@ -59,6 +59,7 @@ export const useCartStore = create<StoreProps>((set) => ({
         const updatedCart = state.state.cart.filter(
           (product) => product.id !== productId
         );
+        saveUserCart(updatedCart);
         return { state: { ...state, cart: updatedCart } };
       });
     },

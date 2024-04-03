@@ -43,7 +43,7 @@ export default function ButtonToBuyProduct(product: ButtonToBuyProductProps) {
   }
 
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="flex justify-between items-center w-full gap-2">
       {productQuantity == 1 && (
         <Button onClick={handleRemoveProduct}>
           <Trash size={24} />
