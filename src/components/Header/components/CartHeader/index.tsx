@@ -31,16 +31,14 @@ export default function CartHeader() {
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent className="bg-secondary text-primary">
+      <SheetContent className="bg-secondary text-primary overflow-auto">
         <SheetHeader>
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-          {cart.map(productCart => {
-            return (
-              <CartHeaderItem key={productCart.id} {...productCart} />
-            )
-          })}
+          {cart.map((productCart) => (
+            <CartHeaderItem key={productCart.id} {...productCart} />
+          ))}
         </div>
         <SheetFooter>
           <SheetClose asChild>
