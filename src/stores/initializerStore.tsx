@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { useCartStore } from "./cartStore";
+import { getUserCart } from "@/services/cartLocalStorage";
 
 const InitializerStore = () => {
   const initializer = useRef(false);
@@ -10,7 +11,7 @@ const InitializerStore = () => {
   }
 
   useCartStore.setState({
-    state: { cart: [] },
+    state: { cart: getUserCart() },
   });
   initializer.current = true;
 

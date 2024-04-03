@@ -1,20 +1,14 @@
+import { ICartProduct } from "@/interfaces/ICartProduct";
+import { saveUserCart } from "@/services/cartLocalStorage";
 import { create } from "zustand";
-
-interface CartProduct {
-  quantity: number;
-  id: string;
-  name: string
-  price: number;
-  imageUrl: string
-}
 
 type StoreProps = {
   state: {
-    cart: CartProduct[];
+    cart: ICartProduct[];
   };
   actions: {
-    addProduct: (product: CartProduct) => void;
-    removeProductQuantity: (product: CartProduct) => void;
+    addProduct: (product: ICartProduct) => void;
+    removeProductQuantity: (product: ICartProduct) => void;
     removeProduct: (productId: string) => void;
   };
 };
@@ -24,7 +18,7 @@ export const useCartStore = create<StoreProps>((set) => ({
     cart: [],
   },
   actions: {
-    addProduct: (newProduct: CartProduct) => {
+    addProduct: (newProduct: ICartProduct) => {
       set((state) => {
         const existingProductIndex = state.state.cart.findIndex(
           (item) => item.id === newProduct.id
@@ -33,18 +27,21 @@ export const useCartStore = create<StoreProps>((set) => ({
         if (existingProductIndex !== -1) {
           const updatedCart = [...state.state.cart];
           updatedCart[existingProductIndex] = newProduct;
+          saveUserCart(updatedCart);
           return { state: { ...state, cart: updatedCart } };
         } else {
+          const newCart = [...state.state.cart, newProduct];
+          saveUserCart(newCart);
           return {
             state: {
               ...state,
-              cart: [...state.state.cart, newProduct],
+              cart: newCart,
             },
           };
         }
       });
     },
-    removeProductQuantity: (productToRemoveQuantity: CartProduct) => {
+    removeProductQuantity: (productToRemoveQuantity: ICartProduct) => {
       set((state) => {
         const existingProductIndex = state.state.cart.findIndex(
           (item) => item.id === productToRemoveQuantity.id
@@ -53,6 +50,7 @@ export const useCartStore = create<StoreProps>((set) => ({
         const updatedCart = [...state.state.cart];
         updatedCart[existingProductIndex].quantity -=
           productToRemoveQuantity.quantity;
+        saveUserCart(updatedCart);
         return { state: { ...state, cart: updatedCart } };
       });
     },
