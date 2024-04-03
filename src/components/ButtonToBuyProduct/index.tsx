@@ -54,8 +54,8 @@ export default function ButtonToBuyProduct({
         </Button>
       )}
       <span>{productQuantity}</span>
-      <Button>
-        <Plus size={24} onClick={handleAddQuantity} />
+      <Button onClick={handleAddQuantity}>
+        <Plus size={24} />
       </Button>
     </div>
   );

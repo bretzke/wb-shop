@@ -21,7 +21,7 @@ export default function ProductCard({ id, name, price, imageUrl }: IProduct) {
         className="flex flex-col grow justify-between"
       >
         <CardHeader className="p-2">
-          <Image src={imageUrl} width={200} height={200} alt="" />
+          <Image src={imageUrl} width={200} height={200} alt="" className="max-h-48" />
         </CardHeader>
         <CardContent className="p-4">
           <CardTitle className="text-lg">{name}</CardTitle>
