@@ -29,7 +29,7 @@ export default function ProductCard({ id, name, price, imageUrl }: IProduct) {
         </CardContent>
       </Link>
       <CardFooter className="p-4">
-        <ButtonToBuyProduct productId={id} />
+        <ButtonToBuyProduct id={id} imageUrl={imageUrl} name={name} price={price} />
       </CardFooter>
     </Card>
   );

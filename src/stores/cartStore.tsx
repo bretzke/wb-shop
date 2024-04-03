@@ -1,11 +1,11 @@
-import { IProduct } from "@/interfaces/IProduct";
 import { create } from "zustand";
-
-type ActionsProps = {};
 
 interface CartProduct {
   quantity: number;
   id: string;
+  name: string
+  price: number;
+  imageUrl: string
 }
 
 type StoreProps = {
@@ -32,7 +32,7 @@ export const useCartStore = create<StoreProps>((set) => ({
 
         if (existingProductIndex !== -1) {
           const updatedCart = [...state.state.cart];
-          updatedCart[existingProductIndex].quantity = newProduct.quantity;
+          updatedCart[existingProductIndex] = newProduct;
           return { state: { ...state, cart: updatedCart } };
         } else {
           return {

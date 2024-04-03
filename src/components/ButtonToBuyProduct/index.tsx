@@ -3,34 +3,35 @@ import { Button } from "../ui/button";
 import { Trash, Plus, Minus } from "phosphor-react";
 
 interface ButtonToBuyProductProps {
-  productId: string;
+  id: string;
+  imageUrl: string;
+  price: number;
+  name: string;
 }
 
-export default function ButtonToBuyProduct({
-  productId,
-}: ButtonToBuyProductProps) {
+export default function ButtonToBuyProduct(product: ButtonToBuyProductProps) {
   const {
     state: { cart },
     actions: { addProduct, removeProductQuantity, removeProduct },
   } = useCartStore();
 
   const productQuantity =
-    cart.find((product) => product.id === productId)?.quantity || 0;
+    cart.find((productCart) => productCart.id === product.id)?.quantity || 0;
 
   function handleAddProduct() {
-    addProduct({ id: productId, quantity: 1 });
+    addProduct({ ...product, quantity: 1 });
   }
 
   function handleAddQuantity() {
-    addProduct({ id: productId, quantity: productQuantity + 1 });
+    addProduct({ ...product, quantity: productQuantity + 1 });
   }
 
   function handleRemoveQuantity() {
-    removeProductQuantity({ id: productId, quantity: 1 });
+    removeProductQuantity({ ...product, quantity: 1 });
   }
 
   function handleRemoveProduct() {
-    removeProduct(productId);
+    removeProduct(product.id);
   }
 
   if (!productQuantity) {

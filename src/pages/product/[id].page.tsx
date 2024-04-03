@@ -47,7 +47,7 @@ export default function Product({ product }: ProductProps) {
             <p>{product.description}</p>
           </div>
 
-          <ButtonToBuyProduct productId={product.id} />
+          <ButtonToBuyProduct {...product} />
         </div>
       </div>
     </>
@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           description: product.description,
         },
       },
-      revalidate: 60 * 60 * 1, // 1 hour
+      revalidate: 60 * 60 * 24, // 1 day
     };
   } catch {
     return {
