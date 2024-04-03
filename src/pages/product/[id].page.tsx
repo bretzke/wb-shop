@@ -27,7 +27,7 @@ export default function Product({ product }: ProductProps) {
         <title>{product.name} | WB Shop</title>
       </Head>
 
-      <div className="container py-8 flex items-center justify-around">
+      <div className="container py-8 flex max-lg:flex-col items-center justify-around gap-4">
         <div className="flex justify-center w-80">
           <Image
             src={product.imageUrl}
