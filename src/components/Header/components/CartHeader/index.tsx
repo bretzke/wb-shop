@@ -2,7 +2,6 @@ import { useCartStore } from "@/stores/cartStore";
 import { Bag } from "phosphor-react";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -11,11 +10,17 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import CartHeaderItem from "./components/CartHeaderItem";
+import { formatNumberToReal } from "@/utils/currency";
 
 export default function CartHeader() {
   const { cart } = useCartStore().state;
   const cartQuantity = cart.reduce(
     (acc, currentProduct) => acc + currentProduct.quantity,
+    0
+  );
+  const cartTotalValue = cart.reduce(
+    (acc, currentProduct) =>
+      acc + currentProduct.price * currentProduct.quantity,
     0
   );
 
@@ -42,9 +47,12 @@ export default function CartHeader() {
           ))}
         </div>
         <SheetFooter>
-          <SheetClose asChild>
-            {cart.length > 0 && <Button type="submit">Finalizar pedido</Button>}
-          </SheetClose>
+          {cart.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <h3 className="font-semibold text-right">Total: {formatNumberToReal(cartTotalValue)}</h3>
+              <Button>Finalizar pedido</Button>
+            </div>
+          )}
         </SheetFooter>
       </SheetContent>
     </Sheet>

@@ -40,6 +40,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       products,
     },
-    revalidate: 60 * 60 * 2, // cria um novo cache dessa página a cada 2 horas
+    revalidate: 60 * 60 * 24, // 1 day
   };
 };
