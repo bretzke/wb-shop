@@ -36,7 +36,7 @@ export default function CartHeader() {
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent className="bg-secondary text-primary overflow-auto">
+      <SheetContent className="bg-secondary text-primary overflow-y-auto">
         <SheetHeader>
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>

@@ -12,7 +12,7 @@ export default function DefaultLayout({ children }: DefaultLayoutProps) {
     <>
       <InitializerStore />
       <Header />
-      {children}
+      <section className="mb-4 max-sm:mb-12">{children}</section>
       <Footer />
     </>
   );
