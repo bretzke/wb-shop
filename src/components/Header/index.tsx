@@ -7,12 +7,12 @@ import ConfigurationButton from "../ConfigurationButton";
 
 export default function Header() {
   return (
-    <header className="flex py-2 px-6 bg-secondary items-center justify-between">
+    <header className="flex py-2 px-6 bg-secondary items-center justify-between max-sm:justify-center">
       <Link href={ROUTES.home}>
         <Image width={80} src={logoPng} alt="" quality={100} />
       </Link>
 
-      <div className="flex items-center">
+      <div className="flex items-center max-sm:hidden">
         <ConfigurationButton />
         <CartHeader />
       </div>

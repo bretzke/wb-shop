@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCarousel from "@/components/ProductCarousel";
 import { IProduct } from "@/interfaces/IProduct";
 import { stripe } from "@/lib/stripe";
 import { GetStaticProps } from "next";
@@ -11,9 +11,7 @@ interface IndexProps {
 export default function Index({ products }: IndexProps) {
   return (
     <div className="flex gap-4 container py-8">
-      {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
-      ))}
+      <ProductCarousel products={products} />
     </div>
   );
 }
