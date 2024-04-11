@@ -2,6 +2,7 @@ import ProductCarousel from "@/components/ProductCarousel";
 import { IProduct } from "@/interfaces/IProduct";
 import { stripe } from "@/lib/stripe";
 import { GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
 import Stripe from "stripe";
 
 interface IndexProps {
@@ -10,9 +11,15 @@ interface IndexProps {
 
 export default function Index({ products }: IndexProps) {
   return (
-    <div className="flex gap-4 container py-8">
-      <ProductCarousel products={products} />
-    </div>
+    <>
+      <NextSeo
+        title="Home | WB Shop"
+        description="O seu produto está aqui na WB Shop."
+      />
+      <div className="flex gap-4 container py-8">
+        <ProductCarousel products={products} />
+      </div>
+    </>
   );
 }
 
