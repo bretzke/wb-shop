@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer className="bg-secondary text-primary flex flex-col items-center justify-center gap-2 fixed bottom-0 left-0 w-full p-2">
       <div className="hidden max-sm:flex gap-4 items-center">
-        <Link href={ROUTES.home}>
+        <Link href={ROUTES.home} className="w-16 flex justify-center">
           <House size={32} />
         </Link>
         {IconsSeparator}
