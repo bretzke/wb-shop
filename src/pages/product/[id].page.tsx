@@ -19,7 +19,7 @@ interface ProductProps {
 export default function Product({ product, relatedProducts }: ProductProps) {
   const { isFallback } = useRouter();
 
-  if (isFallback || !relatedProducts.length) {
+  if (isFallback) {
     return <ProductSkeleton />;
   }
 
