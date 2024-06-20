@@ -16,8 +16,13 @@ export default function Index({ products }: IndexProps) {
         title="Home | WB Shop"
         description="O seu produto está aqui na WB Shop."
       />
-      <div className="flex gap-4 container py-8">
-        <ProductCarousel products={products} />
+      <div className="container">
+        <h1 className="mt-4 mx-auto text-2xl w-fit border-b-2 border-primary pb-1 mb-8 font-bold ">
+          Todos os produtos
+        </h1>
+        <div className="flex gap-4  py-8">
+          <ProductCarousel products={products} />
+        </div>
       </div>
     </>
   );

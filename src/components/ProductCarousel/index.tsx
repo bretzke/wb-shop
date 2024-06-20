@@ -13,7 +13,7 @@ export default function ProductCarousel({ products }: ProductCarouselProps) {
     loop: true,
     breakpoints: {
       "(min-width: 0px)": {
-        slides: { perView: 1, spacing: 5, origin: 'center' },
+        slides: { perView: 1, spacing: 5, origin: "center" },
       },
       "(min-width: 550px)": {
         slides: { perView: 2, spacing: 15 },

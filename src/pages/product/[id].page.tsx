@@ -8,16 +8,18 @@ import Image from "next/image";
 import ButtonToBuyProduct from "@/components/ButtonToBuyProduct";
 import { formatNumberToReal } from "@/utils/currency";
 import ProductSkeleton from "./components/ProductSkeleton";
+import ProductCarousel from "@/components/ProductCarousel";
+import { getRelatedProducts } from "@/services/productsService";
 
 interface ProductProps {
   product: IProduct;
+  relatedProducts: IProduct[];
 }
 
-export default function Product({ product }: ProductProps) {
-
+export default function Product({ product, relatedProducts }: ProductProps) {
   const { isFallback } = useRouter();
 
-  if (isFallback) {
+  if (isFallback || !relatedProducts.length) {
     return <ProductSkeleton />;
   }
 
@@ -27,29 +29,41 @@ export default function Product({ product }: ProductProps) {
         <title>{product.name} | WB Shop</title>
       </Head>
 
-      <div className="container py-8 flex items-center justify-around max-lg:flex-col gap-4">
-        <div className="flex justify-center w-80">
-          <Image
-            src={product.imageUrl}
-            width={300}
-            height={480}
-            alt={product.name}
-          />
-        </div>
-        <div className="flex flex-col gap-4 max-w-lg shadow-lg p-8 rounded-md">
-          <h1 className="text-2xl font-semibold">{product.name}</h1>
-          <h2 className="text-2xl font-bold">
-            {formatNumberToReal(product.price)}
-          </h2>
-
-          <div className="flex flex-col gap-2">
-            <h3 className="text-lg font-medium border-b">Descrição</h3>
-            <p>{product.description}</p>
+      <section className="container">
+        <div className="py-8 flex items-center justify-around max-lg:flex-col gap-4">
+          <div className="flex justify-center w-80">
+            <Image
+              src={product.imageUrl}
+              width={300}
+              height={480}
+              alt={product.name}
+            />
           </div>
+          <div className="flex flex-col gap-4 max-w-lg shadow-lg p-8 rounded-md">
+            <h1 className="text-2xl font-semibold">{product.name}</h1>
+            <h2 className="text-2xl font-bold">
+              {formatNumberToReal(product.price)}
+            </h2>
 
-          <ButtonToBuyProduct {...product} />
+            <div className="flex flex-col gap-2">
+              <h3 className="text-lg font-medium border-b">Descrição</h3>
+              <p>{product.description}</p>
+            </div>
+
+            <ButtonToBuyProduct {...product} />
+          </div>
         </div>
-      </div>
+
+        {relatedProducts.length > 0 && (
+          <div className="pb-8">
+            <h1 className="mt-4 mb-8 mx-auto text-2xl w-fit border-b-2 border-primary pb-1 font-bold">
+              Outros produtos
+            </h1>
+
+            <ProductCarousel products={relatedProducts} />
+          </div>
+        )}
+      </section>
     </>
   );
 }
@@ -67,9 +81,12 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   try {
     const productId = String(params?.id);
 
-    const product = await stripe.products.retrieve(productId, {
-      expand: ["default_price"],
-    });
+    const [product, relatedProducts] = await Promise.all([
+      stripe.products.retrieve(productId, {
+        expand: ["default_price"],
+      }),
+      getRelatedProducts(productId),
+    ]);
 
     const price = product.default_price as Stripe.Price;
     const priceAmount = price.unit_amount ? price.unit_amount / 100 : 0;
@@ -83,6 +100,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           price: priceAmount,
           description: product.description,
         },
+        relatedProducts: relatedProducts,
       },
       revalidate: 60 * 60 * 24, // 1 day
     };

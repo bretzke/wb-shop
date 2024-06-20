@@ -25,7 +25,7 @@ export default function Footer() {
         <CartHeader />
       </div>
       <Link href={ROUTES.linkedin} target="_blank">
-        Willian Bretzke
+        Desenvolvido por: Willian Bretzke
       </Link>
     </footer>
   );
