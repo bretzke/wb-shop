@@ -4,9 +4,9 @@ import logoDarkPng from "@/assets/logo-dark.png";
 import Link from "next/link";
 import { ROUTES } from "@/utils/constants";
 import CartHeader from "./components/CartHeader";
-import ConfigurationButton from "../ConfigurationButton";
 import { useTheme } from "next-themes";
 import { useMemo } from "react";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 export default function Header() {
   const { theme } = useTheme();
@@ -21,7 +21,7 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center max-sm:hidden">
-        <ConfigurationButton />
+        <ThemeSwitcher />
         <CartHeader />
       </div>
     </header>
