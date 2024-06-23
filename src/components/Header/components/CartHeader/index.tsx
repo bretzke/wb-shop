@@ -16,7 +16,7 @@ import { formatNumberToReal } from "@/utils/currency";
 
 export default function CartHeader() {
   const { cart } = useCartStore().state;
-  const { extractCheckoutData } = useCartStore().actions;
+  const { extractCheckoutData, cleanCart } = useCartStore().actions;
   const [isCreatingSession, setIsCreatingSession] = useState(false);
   const cartQuantity = cart.reduce(
     (acc, currentProduct) => acc + currentProduct.quantity,
@@ -37,6 +37,8 @@ export default function CartHeader() {
       });
 
       const { checkoutUrl } = response.data;
+
+      cleanCart();
 
       window.location.href = checkoutUrl;
     } catch (err) {

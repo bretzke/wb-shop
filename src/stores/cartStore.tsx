@@ -12,6 +12,7 @@ type StoreProps = {
     removeProductQuantity: (product: ICartProduct) => void;
     removeProduct: (productId: string) => void;
     extractCheckoutData: () => ICheckoutProduct[];
+    cleanCart: () => void;
   };
 };
 
@@ -72,6 +73,13 @@ export const useCartStore = create<StoreProps>((set, get) => ({
         priceId: item.priceId,
         quantity: item.quantity,
       }));
+    },
+    cleanCart: () => {
+      set({
+        state: {
+          cart: [],
+        },
+      });
     },
   },
 }));
