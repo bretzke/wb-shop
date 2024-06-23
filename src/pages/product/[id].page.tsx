@@ -29,8 +29,8 @@ export default function Product({ product, relatedProducts }: ProductProps) {
         <title>{product.name} | WB Shop</title>
       </Head>
 
-      <section className="container">
-        <div className="py-8 flex items-center justify-around max-lg:flex-col gap-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-around max-lg:flex-col gap-4">
           <div className="flex justify-center w-80">
             <Image
               src={product.imageUrl}
@@ -55,15 +55,15 @@ export default function Product({ product, relatedProducts }: ProductProps) {
         </div>
 
         {relatedProducts.length > 0 && (
-          <div className="pb-8">
-            <h1 className="mt-4 mb-8 mx-auto text-2xl w-fit border-b-2 border-primary pb-1 font-bold">
+          <div className="flex flex-col gap-8">
+            <h1 className="mx-auto text-2xl w-fit border-b-2 border-primary pb-1 font-bold">
               Outros produtos
             </h1>
 
             <ProductCarousel products={relatedProducts} />
           </div>
         )}
-      </section>
+      </div>
     </>
   );
 }

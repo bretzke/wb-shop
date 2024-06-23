@@ -9,10 +9,12 @@ import { useMemo } from "react";
 import ThemeSwitcher from "../ThemeSwitcher";
 
 export default function Header() {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
   const logo = useMemo(() => {
-    return theme === "dark" ? logoDarkPng : logoPng;
-  }, [theme]);
+    return theme === "dark" || (theme === "system" && systemTheme === "dark")
+    ? logoDarkPng
+    : logoPng;
+  }, [theme, systemTheme]);
 
   return (
     <header className="flex py-2 px-6 bg-secondary items-center justify-between max-sm:justify-center">
