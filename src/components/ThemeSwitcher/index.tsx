@@ -5,16 +5,16 @@ import { Moon, Sun } from "phosphor-react";
 import { useMemo } from "react";
 
 export default function ThemeSwitcher() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   function toggleTheme() {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = resolvedTheme === "light" ? "dark" : "light";
     setTheme(newTheme);
   }
 
   const icon = useMemo(
-    () => (theme === "dark" ? <Moon size={32} /> : <Sun size={32} />),
-    [theme]
+    () => (resolvedTheme === "dark" ? <Moon size={32} /> : <Sun size={32} />),
+    [resolvedTheme]
   );
 
   return (
