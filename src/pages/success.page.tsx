@@ -29,7 +29,7 @@ export default function Success({ customerName, products }: SuccessProps) {
         <meta name="robots" content="noindex" />
       </Head>
 
-      <section className="container y-8 flex flex-col gap-6">
+      <section className="container py-8 flex flex-col gap-6">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Pedido Confirmado!</h1>
           <h3 className="text-lg font-semibold">
