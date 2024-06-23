@@ -21,7 +21,7 @@ export const getRelatedProducts = async (
           name: relatedProduct.name,
           description: relatedProduct.description,
           imageUrl: relatedProduct.images[0],
-          defaultPriceId: relatedProduct.default_price.id,
+          priceId: relatedProduct.default_price.id,
           price: relatedProduct.default_price.unit_amount / 100,
         } as IProduct)
     )

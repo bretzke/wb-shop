@@ -7,6 +7,7 @@ interface ButtonToBuyProductProps {
   imageUrl: string;
   price: number;
   name: string;
+  priceId: string;
 }
 
 export default function ButtonToBuyProduct(product: ButtonToBuyProductProps) {

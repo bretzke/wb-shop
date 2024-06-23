@@ -13,7 +13,7 @@ import Link from "next/link";
 import { ROUTES } from "@/utils/constants";
 import ButtonToBuyProduct from "../ButtonToBuyProduct";
 
-export default function ProductCard({ id, name, price, imageUrl }: IProduct) {
+export default function ProductCard({ id, name, price, imageUrl, priceId }: IProduct) {
   return (
     <Card className="w-52 flex flex-col justify-between">
       <Link
@@ -29,7 +29,7 @@ export default function ProductCard({ id, name, price, imageUrl }: IProduct) {
         </CardContent>
       </Link>
       <CardFooter className="p-4">
-        <ButtonToBuyProduct id={id} imageUrl={imageUrl} name={name} price={price} />
+        <ButtonToBuyProduct id={id} imageUrl={imageUrl} name={name} price={price} priceId={priceId} />
       </CardFooter>
     </Card>
   );

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { Bag } from "phosphor-react";
 import {
@@ -10,10 +11,13 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import CartHeaderItem from "./components/CartHeaderItem";
+import axios from "axios";
 import { formatNumberToReal } from "@/utils/currency";
 
 export default function CartHeader() {
   const { cart } = useCartStore().state;
+  const { extractCheckoutData } = useCartStore().actions;
+  const [isCreatingSession, setIsCreatingSession] = useState(false);
   const cartQuantity = cart.reduce(
     (acc, currentProduct) => acc + currentProduct.quantity,
     0
@@ -23,6 +27,23 @@ export default function CartHeader() {
       acc + currentProduct.price * currentProduct.quantity,
     0
   );
+
+  async function handleFinalizeOrder() {
+    try {
+      setIsCreatingSession(true);
+
+      const response = await axios.post("/api/checkout", {
+        cartProducts: extractCheckoutData(),
+      });
+
+      const { checkoutUrl } = response.data;
+
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      setIsCreatingSession(false);
+      alert("Falha ao redirecionar ao checkout");
+    }
+  }
 
   return (
     <Sheet>
@@ -49,8 +70,15 @@ export default function CartHeader() {
         <SheetFooter>
           {cart.length > 0 && (
             <div className="flex flex-col gap-2">
-              <h3 className="font-semibold text-right">Total: {formatNumberToReal(cartTotalValue)}</h3>
-              <Button>Finalizar pedido</Button>
+              <h3 className="font-semibold text-right">
+                Total: {formatNumberToReal(cartTotalValue)}
+              </h3>
+              <Button
+                disabled={isCreatingSession}
+                onClick={handleFinalizeOrder}
+              >
+                Finalizar pedido
+              </Button>
             </div>
           )}
         </SheetFooter>

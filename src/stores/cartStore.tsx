@@ -1,4 +1,5 @@
 import { ICartProduct } from "@/interfaces/ICartProduct";
+import { ICheckoutProduct } from "@/interfaces/ICheckoutProduct";
 import { saveUserCart } from "@/services/cartLocalStorage";
 import { create } from "zustand";
 
@@ -10,10 +11,11 @@ type StoreProps = {
     addProduct: (product: ICartProduct) => void;
     removeProductQuantity: (product: ICartProduct) => void;
     removeProduct: (productId: string) => void;
+    extractCheckoutData: () => ICheckoutProduct[];
   };
 };
 
-export const useCartStore = create<StoreProps>((set) => ({
+export const useCartStore = create<StoreProps>((set, get) => ({
   state: {
     cart: [],
   },
@@ -29,16 +31,16 @@ export const useCartStore = create<StoreProps>((set) => ({
           updatedCart[existingProductIndex] = newProduct;
           saveUserCart(updatedCart);
           return { state: { ...state, cart: updatedCart } };
-        } else {
-          const newCart = [...state.state.cart, newProduct];
-          saveUserCart(newCart);
-          return {
-            state: {
-              ...state,
-              cart: newCart,
-            },
-          };
         }
+
+        const newCart = [...state.state.cart, newProduct];
+        saveUserCart(newCart);
+        return {
+          state: {
+            ...state,
+            cart: newCart,
+          },
+        };
       });
     },
     removeProductQuantity: (productToRemoveQuantity: ICartProduct) => {
@@ -62,6 +64,14 @@ export const useCartStore = create<StoreProps>((set) => ({
         saveUserCart(updatedCart);
         return { state: { ...state, cart: updatedCart } };
       });
+    },
+    extractCheckoutData: () => {
+      const { cart } = get().state;
+
+      return cart.map((item) => ({
+        priceId: item.priceId,
+        quantity: item.quantity,
+      }));
     },
   },
 }));
