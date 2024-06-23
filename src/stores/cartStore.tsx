@@ -80,6 +80,8 @@ export const useCartStore = create<StoreProps>((set, get) => ({
           cart: [],
         },
       });
+
+      saveUserCart([]);
     },
   },
 }));
