@@ -5,25 +5,26 @@ import Link from "next/link";
 import { ROUTES } from "@/utils/constants";
 import CartHeader from "./components/CartHeader";
 import { useTheme } from "next-themes";
-import { useMemo } from "react";
 import ThemeSwitcher from "../ThemeSwitcher";
 
-export default function  Header() {
+export default function Header() {
   const { resolvedTheme } = useTheme();
-  const logo = useMemo(() => {
-    return resolvedTheme === "dark"
-    ? logoDarkPng
-    : logoPng;
-  }, [resolvedTheme]);
 
   return (
     <header className="flex py-2 px-6 bg-secondary items-center justify-between max-sm:justify-center">
       <Link href={ROUTES.home}>
-        <Image width={80} src={logo} alt="" quality={100} />
+        {
+          <Image
+            width={80}
+            src={resolvedTheme === "dark" ? logoDarkPng : logoPng}
+            alt=""
+            quality={100}
+          />
+        }
       </Link>
 
       <div className="flex items-center max-sm:hidden">
-        <ThemeSwitcher />
+        {<ThemeSwitcher />}
         <CartHeader />
       </div>
     </header>
