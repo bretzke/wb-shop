@@ -24,7 +24,7 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center max-sm:hidden">
-        {<ThemeSwitcher />}
+        <ThemeSwitcher />
         <CartHeader />
       </div>
     </header>

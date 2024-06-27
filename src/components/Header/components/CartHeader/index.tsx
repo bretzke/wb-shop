@@ -79,7 +79,7 @@ export default function CartHeader() {
                 disabled={isCreatingSession}
                 onClick={handleFinalizeOrder}
               >
-                Finalizar pedido
+                {isCreatingSession ? "Finalizando..." : "Finalizar pedido"}
               </Button>
             </div>
           )}
